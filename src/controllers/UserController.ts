@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import * as bcrypt from "bcryptjs";
-import * as jwt from "jsonwebtoken";
-import config from "../config/config";
+import { Request, Response } from 'express';
+import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
+import config from '../config/config';
 class UserController {
   // Create New User
   static newUser = async (req: Request, res: Response) => {
@@ -11,12 +11,12 @@ class UserController {
 
       //Validade if the parameters are ok
       if (!(username && password)) {
-        return res.status(400).json("All input is required");
+        return res.status(400).json('All input is required');
       }
 
       // Create token
       const token = jwt.sign({ user_id: username }, config.TOKEN_KEY, {
-        expiresIn: "1h",
+        expiresIn: '1h'
       });
 
       //Here implement Database
@@ -41,7 +41,7 @@ class UserController {
 
       //Validade if the parameters are ok
       if (!(username && password)) {
-        return res.status(400).json("All input is required");
+        return res.status(400).json('All input is required');
       }
 
       //Here implement cycle login

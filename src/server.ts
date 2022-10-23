@@ -1,10 +1,10 @@
-import express from "express";
-import * as bodyParser from "body-parser";
-import helmet from "helmet";
-import cors from "cors";
-import * as dotenv from "dotenv";
-import routes from "./routes";
-import config from "./config/config";
+import express from 'express';
+import * as bodyParser from 'body-parser';
+import helmet from 'helmet';
+import cors from 'cors';
+import * as dotenv from 'dotenv';
+import routes from './routes';
+import config from './config/config';
 
 // Port APP
 const PORT = config.PORT || 3000;
@@ -16,11 +16,11 @@ const app = express();
 app.use(cors());
 app.use(helmet());
 app.use(bodyParser.json());
-app.use("/", routes);
+app.use('/', routes);
 
 // Root URI call
-app.get("/", async (req, res) => {
-  res.send("News API is Ready!");
+app.get('/', async (req, res) => {
+  res.send('News API is Ready!');
 });
 
 app.listen(PORT, () => {

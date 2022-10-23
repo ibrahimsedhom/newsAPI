@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import axios from "axios";
+import { Request, Response } from 'express';
+import axios from 'axios';
 
-import config from "../config/config";
+import config from '../config/config';
 class UserController {
   // Create Fetch All News
   static fetchAllNews = async (req: Request, res: Response) => {
@@ -23,7 +23,7 @@ class UserController {
     try {
       const { search } = req.body;
       if (!search) {
-        return res.status(400).json("The Search input is required");
+        return res.status(400).json('The Search input is required');
       }
 
       // // URl third party

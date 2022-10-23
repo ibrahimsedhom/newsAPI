@@ -1,16 +1,16 @@
-import { Express, Request, Response, NextFunction } from "express";
-import * as jwt from "jsonwebtoken";
-import config from "../config/config";
+import { Express, Request, Response, NextFunction } from 'express';
+import * as jwt from 'jsonwebtoken';
+import config from '../config/config';
 
 class AuthController {
   static requireAuth = (req: Request, res: Response, next: NextFunction) => {
     if (!req.headers || !req.headers.authorization) {
-      return res.status(401).send({ message: "No authorization headers." });
+      return res.status(401).send({ message: 'No authorization headers.' });
     }
 
-    const token_bearer = req.headers.authorization.split(" ");
+    const token_bearer = req.headers.authorization.split(' ');
     if (token_bearer.length != 2) {
-      return res.status(401).send({ message: "Malformed token." });
+      return res.status(401).send({ message: 'Malformed token.' });
     }
 
     const token = token_bearer[1];
@@ -19,7 +19,7 @@ class AuthController {
       if (err) {
         return res
           .status(500)
-          .send({ auth: false, message: "Failed to authenticate." });
+          .send({ auth: false, message: 'Failed to authenticate.' });
       }
       return next();
     });
