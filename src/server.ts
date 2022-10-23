@@ -18,8 +18,10 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use("/", routes);
 
-//Set all routes from routes folder
-// app.use("/", routes);
+// Root URI call
+app.get("/", async (req, res) => {
+  res.send("News API is Ready!");
+});
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
