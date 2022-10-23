@@ -26,13 +26,29 @@ class UserController {
         return res.status(400).json("The Search input is required");
       }
 
-      // URl third party
-      let URL = `https://newsapi.org/v2/everything?q=${search}&sortBy=publishedAt&apiKey=${config.apiKey}`;
+      // // URl third party
+      // let URL = `https://newsapi.org/v2/everything?q=${search}&sortBy=publishedAt&apiKey=${config.apiKey}`;
 
-      // response third party
-      const resNews: object = await callAxios(URL);
+      // // response third party
+      // const resNews: object = await callAxios(URL);
 
-      return res.status(200).json(resNews);
+      // Use Debounced
+      const debounceSearch = debounce(async (e) => {
+        try {
+          console.log(e);
+          // URl third party
+          let URL = `https://newsapi.org/v2/everything?q=${e}&sortBy=publishedAt&apiKey=${config.apiKey}`;
+
+          // response third party
+          const resNews: object = await callAxios(URL);
+          return res.status(200).json(resNews);
+        } catch (error) {
+          return res.status(500).send(error);
+        }
+      }, 1000);
+
+      // call debounce
+      debounceSearch(search);
     } catch (error) {
       return res.status(500).send(error);
     }
@@ -46,6 +62,21 @@ const callAxios = async (url: string): Promise<object> => {
   } catch (error) {
     throw error;
   }
+};
+
+// DECLARE DEBOUNCE FUNCTION
+const debounce = <T extends (...args: any[]) => ReturnType<T>>(
+  callback: T,
+  timeout: number
+): ((...args: Parameters<T>) => void) => {
+  let timer: ReturnType<typeof setTimeout>;
+
+  return (...args: Parameters<T>) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      callback(...args);
+    }, timeout);
+  };
 };
 
 export default UserController;
